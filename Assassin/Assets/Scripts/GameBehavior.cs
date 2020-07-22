@@ -6,11 +6,36 @@ using TMPro;
 
 public class GameBehavior : MonoBehaviour
 {
+    public User user;
     private List<string> list = new List<string>();
     public GameObject AddPlayerInputField;
     public GameObject SearchPlayerInputField;
+    public GameObject UsernameInputField;
     public TMP_Text PlayerAddedTxt;
     public TMP_Text TargetTxt;
+
+   
+
+    public void Start()
+    {
+        LoadPlayer();
+    }
+
+    #region Managing Player Data Methods
+
+    public void SaveUser()
+    {
+        user.Username = UsernameInputField.GetComponent<TMP_InputField>().text;
+        SaveSystem.SavePlayer(user);
+    }
+    public void LoadPlayer()
+    {
+        PlayerData data = SaveSystem.LoadPlayer();
+        user.Username = data.username;
+        UsernameInputField.GetComponent<TMP_InputField>().text = user.Username;
+    }
+
+    #endregion
 
     public void addPlayer()
     {  
@@ -22,6 +47,7 @@ public class GameBehavior : MonoBehaviour
        PlayerAddedTxt.GetComponent<TMP_Text>().text = list[list.Count -1] + " was added to the game!";
        AddPlayerInputField.GetComponent<TMP_InputField>().text = "";
     }
+    #region Creating Game Methods
 
     public void Shuffle()
     {
@@ -64,5 +90,6 @@ public class GameBehavior : MonoBehaviour
         
     }
 
+    #endregion
 
 }

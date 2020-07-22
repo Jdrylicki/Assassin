@@ -1,20 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
-public class PlayerData : MonoBehaviour
+
+[System.Serializable]
+public class PlayerData
 {
-    public GameObject Username;
-    void Start()
+
+    public string username;
+    
+    public PlayerData (User user)
     {
-        Username.GetComponent<TMP_InputField>().text = PlayerPrefs.GetString("UserName");
+        username = user.Username;
     }
-    public void save()
-    {
-        PlayerPrefs.DeleteKey("UserName");
-        PlayerPrefs.SetString("UserName", Username.GetComponent<TMP_InputField>().text);
-        
-    }
+   
       
 }
